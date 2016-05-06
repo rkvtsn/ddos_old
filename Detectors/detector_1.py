@@ -32,13 +32,14 @@ def process_socket(q):
 # make predict by data
 def process_data(q):
     s = sock.socket_s()
+    global attack_count
     while True:
         pkg = q.get()
         data = [int(x) for x in pkg.split(",")]
         pred = model.predict([data[1:]])
         
         print pkg, pred
-        print attack_count
+        print "attaks in row", attack_count
 
         if pred[0] != 'BENIGN':
             attack_count += 1
