@@ -13,11 +13,13 @@ CONFIG = {
     "ip_out": "127.0.0.1",
 }
 
+ATTACK_THRESHOLD = 2
 
 sock = Sock(CONFIG)
 
 model = joblib.load("models/100decisionTreeALL.pkl")
 
+attack_count = 0
 
 # listening socket
 def process_socket(q):
@@ -25,7 +27,6 @@ def process_socket(q):
     while True:
         pkg = sock.get_package(r)
         q.put(pkg)
-
 
 
 # make predict by data
@@ -36,9 +37,12 @@ def process_data(q):
         data = [int(x) for x in pkg.split(",")]
         pred = model.predict([data[1:]])
         print pkg, pred
-        #if pred[0] != 'BENIGN':
-        #s.send(str(data[0]))
-
+        if pred[0] != 'BENIGN':
+            attack_count += 1
+            if attack_count > ATTACK_THRESHOLD:
+                s.send(str(data[0]))
+        else:
+            attack_count = 0
 
 def main():
     q1 = Queue()
