@@ -35,7 +35,7 @@ def process_data(q):
     #s = sock.socket_s()
     while True:
         pkg = q.get()
-        decision = decision_maker.make(timestamp=int(pkg))
+        decision = decision_maker.make(timestamp=int(pkg), depth=2)
         print decision
         #s.send(decision)
         #print "decision: "

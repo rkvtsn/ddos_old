@@ -24,6 +24,8 @@ class DecisionMaker():
         
         data = self.storage.select(timestamp, depth)
 
+        print "found: ", len(data)
+
         pred = self.predict(data, 's_d')
         
         src_list = storage.get_src_by_predict(data, pred)
