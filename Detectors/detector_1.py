@@ -36,7 +36,10 @@ def process_data(q):
         pkg = q.get()
         data = [int(x) for x in pkg.split(",")]
         pred = model.predict([data[1:]])
+        
         print pkg, pred
+        print attack_count
+
         if pred[0] != 'BENIGN':
             attack_count += 1
             if attack_count > ATTACK_THRESHOLD:

@@ -26,6 +26,7 @@ def process_socket(q):
     r = sock.socket_r()
     while True:
         pkg = sock.get_package(r)
+        print pkg
         q.put(pkg)
 
 
