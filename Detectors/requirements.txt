@@ -1,0 +1,3 @@
+pandas
+zmq
+scikit-learn

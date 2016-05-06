@@ -1,0 +1,10 @@
+{
+  "name": "Collector",
+  "version": "0.0.0",
+  "description": "Netflow Collector",
+  "main": "app.js",
+  "author": {
+    "name": "Andrey Rkvtsn",
+    "email": "rkvtsn@gmail.com"
+  }
+}

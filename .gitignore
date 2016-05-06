@@ -1,0 +1,5 @@
+Collector/node_modules/
+Collector/obj
+Collector/debug
+Collector/bin
+Detectors/*.pyc
