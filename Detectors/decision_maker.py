@@ -9,10 +9,10 @@ class DecisionMaker():
         self.storage = Storage(config)
         
         self.models = { 
-            'd' : joblib.load('model/100decisionTreeD.pkl'),
-            's_d' : joblib.load('model/100decisionTreeS_D.pkl'),
-            'sp_d' : joblib.load('model/100decisionTreeSP_D.pkl'),
-            'sp_dp' : joblib.load('model/100decisionTreeSP_DP.pkl'),
+            'd' : joblib.load('models/100decisionTreeD.pkl'),
+            's_d' : joblib.load('models/100decisionTreeS_D.pkl'),
+            'sp_d' : joblib.load('models/100decisionTreeSP_D.pkl'),
+            'sp_dp' : joblib.load('models/100decisionTreeSP_DP.pkl'),
         }
 
         
