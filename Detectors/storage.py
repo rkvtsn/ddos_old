@@ -101,7 +101,7 @@ class Storage():
         lim = ""
         if t1 != None:
             lim += " WHERE time <= '%s' ORDER BY time DESC " % (datetime.datetime.fromtimestamp(t1 / 1000.0))
-        if lim != None:
+        if limit != None:
             lim += " LIMIT %s" % limit
             
         sqlquery = "SELECT * FROM flows " + lim
