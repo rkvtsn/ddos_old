@@ -28,6 +28,7 @@ class Storage():
 
 
     def openIPList(self):
+        ipassoc = None
         with open('ip.dat', 'rd') as f:
             ipassoc = pickle.load(f)
         return ipassoc
@@ -35,14 +36,14 @@ class Storage():
     def check_ip(self, ip):
         a = ip
         inlist = False
-        for i in range(len(ipassoc)):
-            if ip == ipassoc[i][0]:
-                a = ipassoc[i][1]
+        for i in range(len(self.ipassoc)):
+            if ip == self.ipassoc[i][0]:
+                a = self.ipassoc[i][1]
                 inlist = True
         
         if inlist == False:
-            for i in range(len(ipassoc)):
-                if ip == ipassoc[i][1]:                
+            for i in range(len(self.ipassoc)):
+                if ip == self.ipassoc[i][1]:                
                     inlist = True        
         if inlist == False:
             a = '0'
