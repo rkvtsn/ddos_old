@@ -172,9 +172,9 @@ class Storage():
                 row += [data.iloc[i]['atk_name']]
                 result.append(row)
         
-        columns = ['time','src','dst','ucount','pcount', 'bcount'] + storage.nfdata_new()['protocol'].keys() + ['desc', 'target']
+        columns = ['time','src','dst','ucount','pcount', 'bcount'] + self.nfdata_new()['protocol'].keys() + ['desc', 'target']
         if nf_group_type == None or nf_group_type == 'all':
-            columns = ['time','-','ucount','pcount', 'bcount'] + storage.nfdata_new()['protocol'].keys() + ['desc', 'target']
+            columns = ['time','-','ucount','pcount', 'bcount'] + self.nfdata_new()['protocol'].keys() + ['desc', 'target']
         if nf_group_type == 's':  
-            columns = ['time','src','ucount','pcount', 'bcount'] + storage.nfdata_new()['protocol'].keys() + ['desc', 'target'] 
+            columns = ['time','src','ucount','pcount', 'bcount'] + self.nfdata_new()['protocol'].keys() + ['desc', 'target'] 
         return pd.DataFrame(result, columns=columns)
