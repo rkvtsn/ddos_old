@@ -16,7 +16,7 @@ class DecisionMaker():
         }
 
         
-    def predict(data, s):
+    def predict(self, data, s):
         return self.models[s].predict(self.storage.filter_data(data, s))
     
     def make(self, timestamp=None, depth=None):
