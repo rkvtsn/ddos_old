@@ -94,9 +94,7 @@ class Storage():
     def get_src_by_predict(self, data, pred):
         df = data.copy()
         df.insert(0, 'pred', pred)
-        print df
-        #return list(df.loc[df.pred != 'BENIGN'].src)
-        return []
+        return list(df.loc[df.pred != 'BENIGN'].src)
 
     
     
