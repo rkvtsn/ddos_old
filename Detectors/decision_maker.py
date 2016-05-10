@@ -17,13 +17,7 @@ class DecisionMaker():
         
         self.features = ['bcount', 'pcount']
 
-
-    def predict(self, data, s):
-        features = self.features[:]
-        if s != "sp_dp":
-            features.append('ucount')
-        return self.models[s].predict(self.storage.filter_data(data, s)[features])
-
+        
     
     def make(self, timestamp=None, depth=None):
         result = "empty"
@@ -32,15 +26,16 @@ class DecisionMaker():
 
         print "found: ", len(data)
 
-        pred = self.predict(data, 's_d')
+        features = self.features[:]
+        if s != "sp_dp":
+            features.append('ucount')
         
-        print len(pred)
-        print len(data)
-        #self.storage.get_src_by_predict(data, pred)
-
-        #src_list = self.storage.get_src_by_predict(data, pred)
-        #if len(src_list) > 0:
-        #    result = ",".join(src_list)
+        df = self.storage.filter_data(data, 's_d')
+        pred = self.models[s].predict(df[features])
+        
+        src_list = self.storage.get_src_by_predict(data, pred)
+        if len(src_list) > 0:
+            result = ",".join(src_list)
         
         return result
 
