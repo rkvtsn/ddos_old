@@ -34,8 +34,9 @@ class DecisionMaker():
 
         pred = self.predict(data, 's_d')
         
-        print pred
-        self.storage.get_src_by_predict(data, pred)
+        print len(pred)
+        print len(data)
+        #self.storage.get_src_by_predict(data, pred)
 
         #src_list = self.storage.get_src_by_predict(data, pred)
         #if len(src_list) > 0:
