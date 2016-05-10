@@ -14,10 +14,16 @@ class DecisionMaker():
             'sp_d' : joblib.load('models/100decisionTreeSP_D.pkl'),
             'sp_dp' : joblib.load('models/100decisionTreeSP_DP.pkl'),
         }
-
         
+        self.features = ['bcount', 'pcount']
+
+
     def predict(self, data, s):
-        return self.models[s].predict(self.storage.filter_data(data, s))
+        features = self.features[:]
+        if s != "sp_dp":
+            features.append('ucount')
+        return self.models[s].predict(self.storage.filter_data(data, s)[features])
+
     
     def make(self, timestamp=None, depth=None):
         result = "empty"
