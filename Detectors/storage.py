@@ -101,7 +101,7 @@ class Storage():
         src_list = set()
         for i in xrange(len(pred)):
             if pred[i] != "BENIGN":
-                src_list.add(data.iloc[idx].src)
+                src_list.add(data.iloc[i].src)
         return src_list
 
 
