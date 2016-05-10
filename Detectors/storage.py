@@ -91,13 +91,20 @@ class Storage():
 
     ''' Warning '''
     ''' TODO '''
-    def get_src_by_predict(self, data, pred):
+    def get_src_by_predict2(self, data, pred):
         df = data.copy()
         df.insert(0, 'pred', pred)
-        return set(list(df.loc[df.pred != 'BENIGN'].src))
+        return list(df.loc[df.pred != 'BENIGN'].src)
 
     
-    
+    def get_src_by_predict(self, data, pred):
+        src_list = set()
+        for i in xrange(len(pred)):
+            if pred[i] != "BENIGN":
+                src_list.add(data.iloc[idx].src)
+        return src_list
+
+
     def select(self, t1=None, limit=None):
         lim = ""
         if t1 != None:
@@ -112,11 +119,11 @@ class Storage():
 
     def filter_data(self, data, nf_group_type=None):
         result = []
-        for i in range(len(data)):
+        for i in xrange(len(data)):
             nfc_group = { }
         
             #X-threads:
-            for j in range(len(data.iloc[i]["data"])):
+            for j in xrange(len(data.iloc[i]["data"])):
             
                 #1-thread:
                 s_buf = data.iloc[i]["data"][j]

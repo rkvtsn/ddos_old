@@ -24,7 +24,7 @@ class DecisionMaker():
         
         data = self.storage.select(timestamp, depth)
 
-        print "found: ", len(data)
+        #print "found: ", len(data)
 
         #!
         s = 's_d'
@@ -36,9 +36,10 @@ class DecisionMaker():
         df = self.storage.filter_data(data, s)
         pred = self.models[s].predict(df[features])
         
-        src_list = self.storage.get_src_by_predict(df, pred)
+        src_list = set(self.storage.get_src_by_predict(df, pred))
         if len(src_list) > 0:
             result = ",".join(src_list)
+            #print "# ", len(src_list)
         
         return result
 

@@ -37,9 +37,6 @@ def process_data(q):
         pkg = q.get()
         decision = decision_maker.make(timestamp=int(pkg), depth=2)
         print decision
-        #s.send(decision)
-        #print "decision: "
-        #print decision
 
 
 def main():
