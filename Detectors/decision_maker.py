@@ -26,11 +26,14 @@ class DecisionMaker():
 
         print "found: ", len(data)
 
+        #!
+        s = 's_d'
+
         features = self.features[:]
         if s != "sp_dp":
             features.append('ucount')
         
-        df = self.storage.filter_data(data, 's_d')
+        df = self.storage.filter_data(data, s)
         pred = self.models[s].predict(df[features])
         
         src_list = self.storage.get_src_by_predict(data, pred)
