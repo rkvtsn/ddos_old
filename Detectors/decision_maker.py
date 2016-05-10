@@ -34,9 +34,11 @@ class DecisionMaker():
 
         pred = self.predict(data, 's_d')
         
-        src_list = self.storage.get_src_by_predict(data, pred)
-        if len(src_list) > 0:
-            result = ",".join(src_list)
+        print pred
+
+        #src_list = self.storage.get_src_by_predict(data, pred)
+        #if len(src_list) > 0:
+        #    result = ",".join(src_list)
         
         return result
 
