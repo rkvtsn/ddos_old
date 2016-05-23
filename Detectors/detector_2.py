@@ -5,7 +5,7 @@ from multiprocessing import Process, Queue
 from decision_maker import DecisionMaker
 from storage import Storage
 from sock import Sock
-
+import datetime
 CONFIG = {
     "port_in": 6350,
     "port_out": 6341,
@@ -26,18 +26,23 @@ def process_socket(q):
     r = sock.socket_r()
     while True:
         pkg = sock.get_package(r)
-        print pkg
-        q.put(pkg)
+        #print pkg
+        time1 = datetime.datetime.now()
+        print 'received', time1
+        q.put((pkg, time1))
 
 
 # make decision by data
 def process_data(q):
     #s = sock.socket_s()
     while True:
-        pkg = q.get()
+        pkg, time1 = q.get()
         decision = decision_maker.make(timestamp=int(pkg), depth=2)
         print decision
-
+        time2 = datetime.datetime.now()
+        print 'decision', time2
+        time3 = (time2 - time1).total_seconds()
+        print 'delta', time3
 
 def main():
     q1 = Queue()

@@ -1,4 +1,5 @@
 ﻿#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import pandas as pd
 from pandas.io import sql
 import psycopg2
@@ -21,36 +22,41 @@ class Storage():
                                     user=config["username"], 
                                     password=config["password"], 
                                     database=config["database"])
-        self.ipassoc = self.openIPList()
+        self.ipassoc = self.get_iptable()
 
     def close(self):
         self.conn.close()
 
 
-    def openIPList(self):
-        ipassoc = None
+    def get_iptable(self):
+        
+        ipassoc = []
         with open('ip.dat', 'rd') as f:
             ipassoc = pickle.load(f)
+
         return ipassoc
     
     def check_ip(self, ip):
+        
         a = ip
         inlist = False
-        for i in range(len(self.ipassoc)):
+        for i in xrange(len(self.ipassoc)):
             if ip == self.ipassoc[i][0]:
                 a = self.ipassoc[i][1]
                 inlist = True
         
         if inlist == False:
-            for i in range(len(self.ipassoc)):
+            for i in xrange(len(self.ipassoc)):
                 if ip == self.ipassoc[i][1]:                
                     inlist = True        
+
         if inlist == False:
             a = '0'
+
         return a
 
     def get_upair_group(self, flow, t=None):
-        if t == None or t == "all":
+        if t is None or t == "all":
             return "all"
         s = ""
         for x in t.split('_'):
@@ -89,14 +95,6 @@ class Storage():
         return nfdata
     
 
-    ''' Warning '''
-    ''' TODO '''
-    def get_src_by_predict2(self, data, pred):
-        df = data.copy()
-        df.insert(0, 'pred', pred)
-        return list(df.loc[df.pred != 'BENIGN'].src)
-
-    
     def get_src_by_predict(self, data, pred):
         src_list = set()
         for i in xrange(len(pred)):
@@ -107,9 +105,9 @@ class Storage():
 
     def select(self, t1=None, limit=None):
         lim = ""
-        if t1 != None:
+        if t1 is not None:
             lim += " WHERE time <= '%s' ORDER BY time DESC " % (datetime.datetime.fromtimestamp(t1 / 1000.0))
-        if limit != None:
+        if limit is not None:
             lim += " LIMIT %s" % limit
             
         sqlquery = "SELECT * FROM flows " + lim
@@ -117,11 +115,11 @@ class Storage():
         return data
         
 
-    def filter_data(self, data, nf_group_type=None):
+    def filter_data(self, data, nf_group_type=None, malware_tables=None):
         result = []
         for i in xrange(len(data)):
             nfc_group = { }
-        
+            
             #X-threads:
             for j in xrange(len(data.iloc[i]["data"])):
             
@@ -143,13 +141,21 @@ class Storage():
 
                         flow['daddr'] = self.check_ip(inet_ntoa(buf[offset + 4:offset + 8]))
                         flow['dport'] = d[5]
+                        
+                        upair = self.get_upair_group(flow, nf_group_type)
+
+                        if malware_tables is not None:
+                            t_src, t_dst = malware_tables
+                            address = upair.split('_')
+                            if address[0] not in t_src and address[1] not in t_dst:
+                                continue
+                        
                         if int(flow['sport']) == 22 or int(flow['dport']) == 22 or int(flow['sport']) == 0 or int(flow['dport']) == 0 or flow['saddr'] == '0' or flow['daddr'] == '0':
                             continue
-                            
+
                         flow['pcount'] = d[0]
                         flow['bcount'] = d[1]
                         
- 
                         flow['protocol'] = { }
                         flow['protocol'][PROTOCOL[ord(buf[offset + 38])]] = 1
                     
@@ -157,16 +163,16 @@ class Storage():
                         
                         flow['upairs'].add((flow['saddr'], d[4], flow['daddr'], d[5]))
                         
-                        s = self.get_upair_group(flow, nf_group_type)
-                        flow['upairs'].add(s)
+                        flow['upairs'].add(upair)
                         if s not in nfc_group:
-                            nfc_group[s] = self.nfdata_new()
+                            nfc_group[upair] = self.nfdata_new()
                         
-                        nfc_group[s] = self.nfdata_add(nfc_group[s], flow)
+                        nfc_group[upair] = self.nfdata_add(nfc_group[upair], flow)
         
             for k in nfc_group:
                 nfc_group[k]['ucount'] = len(nfc_group[k]['upairs'])
-                del nfc_group[k]['upairs']
+                #del nfc_group[k]['upairs']
+                nfc_group[k]['upairs'] = None
                 ip = k.split('_')
                 row = [data.iloc[i]['time']]
                 row += ip
@@ -180,7 +186,7 @@ class Storage():
                 result.append(row)
         
         columns = ['time','src','dst','ucount','pcount', 'bcount'] + self.nfdata_new()['protocol'].keys() + ['desc', 'target']
-        if nf_group_type == None or nf_group_type == 'all':
+        if nf_group_type is None or nf_group_type == 'all':
             columns = ['time','-','ucount','pcount', 'bcount'] + self.nfdata_new()['protocol'].keys() + ['desc', 'target']
         if nf_group_type == 's':  
             columns = ['time','src','ucount','pcount', 'bcount'] + self.nfdata_new()['protocol'].keys() + ['desc', 'target'] 

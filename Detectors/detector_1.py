@@ -39,7 +39,7 @@ def process_data(q):
         pred = model.predict([data[1:]])
         
         print pkg, pred
-        print "attaks in row", attack_count
+        print "attacks in row", attack_count
 
         if pred[0] != 'BENIGN':
             attack_count += 1
