@@ -40,7 +40,6 @@ class Firewall(object):
 
     def _add_rule(self, rule, life_time):
         
-        t = dt.now()
         params = (rule, life_time)
         self._c.execute("INSERT INTO rules (rule_str, life_time) VALUES (?, ?)", params)
 
@@ -65,6 +64,8 @@ class Firewall(object):
             #drop from 'DB'
             id = (rule[0], )
             self._c.execute('DELETE * FROM rules WHERE id = ?', id)
+           
+        self._conn.commit()
         
         #TODO:
         min_life_time = config.timeout
@@ -119,6 +120,8 @@ class Firewall(object):
             rule_str = r + " -j ACCESS"
             subprocess.call('iptables -I INPUT 1 ' + rule_str, shell=True)
             self._add_rule(rule_str, life_time)
+
+        self._conn.commit()
 
 
     def _rules_batch_ports(self, r, ports):
