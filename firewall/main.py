@@ -2,9 +2,10 @@
 # -*- coding: utf-8 -*-
 import datetime
 import json
-import config
-
+import sys, time, os
 from multiprocessing import Process, Queue
+
+import config
 
 from tinterval import TimeInterval
 from firewall import Firewall
@@ -51,13 +52,13 @@ def process_data(q):
         for d in data:
             firewall.block(**d)
 
-        
+
+warden = TimeInterval(config.timeout, process_warden)
 
 def main():
     q1 = Queue()
     try:
-        warden = TimeInterval(config.timeout, process_warden)
-
+        
         p_socket = Process(target=process_socket, args=(q1,))
         p_data = Process(target=process_data, args=(q1,))
 
@@ -71,10 +72,10 @@ def main():
 
     except KeyboardInterrupt:
         print "Caught KeyboardInterrupt, terminating"
+        warden.stop()
         p_socket.terminate()
         p_data.terminate()
-        warden.stop()
-
+        
 
 if __name__ == "__main__":
     main()
