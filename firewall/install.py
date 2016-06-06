@@ -1,7 +1,6 @@
 #
 import sqlite3
-import subprocess
-import sys
+import sys, os, subprocess
 import config
 
 if not os.getuid() == 0:
