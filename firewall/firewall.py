@@ -3,11 +3,14 @@ import sys
 import os
 import subprocess
 import sqlite3
+from math import ceil
 from datetime import datetime as dt
 from datetime import timedelta
-from tinterval import TimeInterval
 
 import config
+
+from tinterval import TimeInterval
+
 
 
 if not os.getuid() == 0:
