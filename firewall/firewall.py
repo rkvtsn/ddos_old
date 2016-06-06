@@ -39,7 +39,7 @@ class Firewall(object):
         
         t = dt.now()
         params = (rule, life_time)
-        self._c.execute("INSERT INTO rules VALUES (?, ?)", params)
+        self._c.execute("INSERT INTO rules (rule_str, life_time) VALUES (?, ?)", params)
 
 
     def refresh(self):
