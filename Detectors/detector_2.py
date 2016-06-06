@@ -6,6 +6,8 @@ from decision_maker import DecisionMaker
 from storage import Storage
 from sock import Sock
 import datetime
+
+
 CONFIG = {
     "port_in": 6350,
     "port_out": 6341,
