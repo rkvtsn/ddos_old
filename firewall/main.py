@@ -39,11 +39,10 @@ def process_socket(q):
         q.put(data)
 
 
-#warden = TimeInterval(config.timeout, process_warden)
+warden = TimeInterval(config.timeout, process_warden)
 # make decision by data
 def process_data(q):
-#    warden.start()
-    print "hello"
+    warden.start()
     while True:
         data = q.get()
         #data = [
