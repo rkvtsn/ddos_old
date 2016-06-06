@@ -59,9 +59,9 @@ def process_data(q):
 def main():
     q1 = Queue()
     try:
+        firewall = Firewall()
         warden = TimeInterval(config.timeout, process_warden)
         warden.start()
-        firewall = Firewall()
 
         p_socket = Process(target=process_socket, args=(q1,))
         p_data = Process(target=process_data, args=(q1,))
