@@ -17,22 +17,6 @@ sock = Sock({
     "ip_in": "127.0.0.1",
 })
 
-firewall = None
-warden = None
-
-# looking for dead rules by life_time in DB
-def process_warden():
-    
-    if firewall is None:
-        print "firewall does not exist!"
-        return
-    print "begin refreshing"
-    # update tables by life_time
-    # TODO: calculate min timeout from DB ...
-    # TODO: Нужно подумать как будет выполняться в условиях параллельного потока при добавлении нового правила с минимальным интервалом в момент уже запущенного потока...
-    firewall.refresh()
-    print "end refreshing"
-
 
 # listening socket
 def process_socket(q):
@@ -59,7 +43,19 @@ def process_data(q):
 def main():
     q1 = Queue()
     try:
+        
         firewall = Firewall()
+        
+        # looking for dead rules by life_time in DB
+        def process_warden():
+    
+            print "begin refreshing"
+            # update tables by life_time
+            # TODO: calculate min timeout from DB ...
+            # TODO: Нужно подумать как будет выполняться в условиях параллельного потока при добавлении нового правила с минимальным интервалом в момент уже запущенного потока...
+            firewall.refresh()
+            print "end refreshing"
+
         warden = TimeInterval(config.timeout, process_warden)
         warden.start()
 
