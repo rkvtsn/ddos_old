@@ -39,9 +39,9 @@ def process_socket(q):
         q.put(data)
 
 
-warden = TimeInterval(config.timeout, process_warden)
 # make decision by data
 def process_data(q):
+    warden = TimeInterval(config.timeout, process_warden)
     warden.start()
     while True:
         data = q.get()
@@ -69,7 +69,7 @@ def main():
 
     except KeyboardInterrupt:
         print "Caught KeyboardInterrupt, terminating"
-#        warden.stop()
+        warden.stop()
         p_socket.terminate()
         p_data.terminate()
         
