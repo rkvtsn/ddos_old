@@ -4,6 +4,8 @@ import datetime
 import json
 import config
 
+from multiprocessing import Process, Queue
+
 from tinterval import TimeInterval
 from firewall import Firewall
 from sock import Sock
