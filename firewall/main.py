@@ -17,11 +17,15 @@ sock = Sock({
     "ip_in": "127.0.0.1",
 })
 
-firewall = Firewall()
+firewall = None
+warden = None
 
 # looking for dead rules by life_time in DB
 def process_warden():
     
+    if firewall is None:
+        print "firewall does not exist!"
+        return
     print "begin refreshing"
     # update tables by life_time
     # TODO: calculate min timeout from DB ...
@@ -41,8 +45,6 @@ def process_socket(q):
 
 # make decision by data
 def process_data(q):
-    warden = TimeInterval(config.timeout, process_warden)
-    warden.start()
     while True:
         data = q.get()
         #data = [
@@ -57,7 +59,10 @@ def process_data(q):
 def main():
     q1 = Queue()
     try:
-        
+        warden = TimeInterval(config.timeout, process_warden)
+        warden.start()
+        firewall = Firewall()
+
         p_socket = Process(target=process_socket, args=(q1,))
         p_data = Process(target=process_data, args=(q1,))
 

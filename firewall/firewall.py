@@ -25,7 +25,7 @@ if not os.getuid() == 0:
 '''
 
 
-class Firewall(object):
+class Firewall():
 
     def __init__(self):
 
@@ -105,9 +105,10 @@ class Firewall(object):
                 self._add_rule(rule_str, life_time)
 
         elif t == "range":
-            rule_str = rule + ' --sport %d:%d' % (bad_ports[0], bad_ports[1]) + j
-            subprocess.call('iptables -A INPUT ' + rule_str, shell=True)
-            self._add_rule(rule_str, life_time)
+            if len(bad_ports) > 1: 
+                rule_str = rule + ' -p tcp --sport %d:%d' % (bad_ports[0], bad_ports[1]) + j
+                subprocess.call('iptables -A INPUT ' + rule_str, shell=True)
+                self._add_rule(rule_str, life_time)
 
         else:
             rule_str = rule + j
@@ -130,8 +131,8 @@ class Firewall(object):
         rule = r
         if ports is not None and len(ports) > 0:
             rule += " -p tcp -m multiport --sports "
-            for i in xrange(int(ceil(len(ports)/float(15)))):
-                ports_str = ','.join(str(x) for x in ports[i*15:(i+1)*15])
+            for i in xrange(int(ceil(len(ports) / float(15)))):
+                ports_str = ','.join(str(x) for x in ports[i * 15:(i + 1) * 15])
                 rules.append(rule + ports_str)
         
         return rules
