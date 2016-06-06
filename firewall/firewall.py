@@ -128,7 +128,8 @@ class Firewall(object):
         if ports is not None and len(ports) > 0:
             rule += " -p tcp -m multiport --sports "
             for i in xrange(int(ceil(len(ports)/float(15)))):
-                rules.append(rule + ','.join(ports[i*15:(i+1)*15]))                
+                ports_str = ','.join(str(x) for x in ports[i*15:(i+1)*15])
+                rules.append(rule + ports_str)
         
         return rules
     
