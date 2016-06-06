@@ -39,9 +39,11 @@ def process_socket(q):
         q.put(data)
 
 
+#warden = TimeInterval(config.timeout, process_warden)
 # make decision by data
 def process_data(q):
-    #s = sock.socket_s()
+#    warden.start()
+    print "hello"
     while True:
         data = q.get()
         #data = [
@@ -53,8 +55,6 @@ def process_data(q):
             firewall.block(**d)
 
 
-warden = TimeInterval(config.timeout, process_warden)
-
 def main():
     q1 = Queue()
     try:
@@ -65,14 +65,12 @@ def main():
         p_data.start()
         p_socket.start()
         
-        warden.start()
-
         while True:
             time.sleep(3600)
 
     except KeyboardInterrupt:
         print "Caught KeyboardInterrupt, terminating"
-        warden.stop()
+#        warden.stop()
         p_socket.terminate()
         p_data.terminate()
         

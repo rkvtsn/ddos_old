@@ -117,7 +117,7 @@ class Firewall(object):
         # insert ALLOWED ports on IP
         access_rules = self._rules_batch_ports(rule, good_ports)
         for r in access_rules:
-            rule_str = r + " -j ACCESS"
+            rule_str = r + " -j ACCEPT"
             subprocess.call('iptables -I INPUT 1 ' + rule_str, shell=True)
             self._add_rule(rule_str, life_time)
 
