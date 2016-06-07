@@ -22,15 +22,14 @@ firewall = Firewall()
 # looking for dead rules by life_time in DB
 def process_warden():
     
-    print "begin refreshing"
-    
     # update tables by life_time
-    # TODO: calculate min timeout from DB ...
     fw = Firewall()
-    fw.refresh()
-    fw.close_connection()
+    removed = fw.refresh()
 
-    print "end refreshing"
+    if len(removed) > 0:
+        print removed
+    
+    fw.close_connection()
 
 
 # listening socket

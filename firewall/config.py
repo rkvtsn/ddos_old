@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 from os import path
 
 dir = "firewall"
@@ -8,4 +10,4 @@ db_path = path.join(dir, db_name)
 backup_path = path.join(dir, backup_name)
 
 # timeout for Firewall.Warden seconds
-timeout = 1
+timeout = 1*60

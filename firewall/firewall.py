@@ -1,4 +1,5 @@
 #!/usr/bin/python
+# -*- coding: utf-8 -*-
 import sys
 import os
 import subprocess
@@ -10,7 +11,6 @@ from datetime import timedelta
 import config
 
 from tinterval import TimeInterval
-
 
 
 if not os.getuid() == 0:
@@ -73,7 +73,7 @@ class Firewall():
         #TODO: If Count of rules is equal 0 rise Timeout by the TOP from SELECT:
         #if len(rules) == 0:
         #    self._c.execute('SELECT life_time FROM rules LIMIT 1')
-        
+        return rules
             
                 
     '''
