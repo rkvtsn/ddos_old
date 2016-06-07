@@ -63,7 +63,7 @@ class Firewall():
                 continue
             #drop from 'DB'
             id = (rule[0], )
-            self._c.execute('DELETE * FROM rules WHERE id = ?', id)
+            self._c.execute('DELETE FROM rules WHERE id = ?', id)
            
         self._conn.commit()
         
