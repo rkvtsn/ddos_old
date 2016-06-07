@@ -1,3 +1,4 @@
 pandas
 zmq
 scikit-learn
+psycopg2

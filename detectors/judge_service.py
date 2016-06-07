@@ -1,6 +1,8 @@
 #!/usr/bin/python
 import sys, time, os
 from multiprocessing import Process, Queue
+import json
+
 
 from sock import Sock
 
@@ -16,26 +18,42 @@ sock = Sock({
 
 
 def process_socket(q):
+    
     r = sock.socket_r()
+
     while True:
         pkg = sock.get_package(r)
         q.put(pkg)
 
-def judge(pkg):
+
+def judge(data):
+
+    result = []
+
+    # TODO
     #do some work
-    return pkg
+    for d in data:
+        #only IP
+        result.append({ 't': None, 'ip': d, 'bad_ports': [], 'good_ports': [], 'timeout': 5, 'is_inner': True })
+    
+    return result
 
 
 def process_data(q):
+    
     s = sock.socket_s()
+    
     while True:
         pkg = q.get()
-        data = judge(pkg)
-        s.send(data)
+        data = json.loads(pkg) # get decision: list of tuple(ip, port) # TODO: now only IP
+        judgment = judge(data) # judge them
+        s.send(judgment) # send judgment to firewall
 
 
 def main():
+
     q1 = Queue()
+
     try:
         p_socket = Process(target=process_socket, args=(q1,))
         p_data = Process(target=process_data, args=(q1,))

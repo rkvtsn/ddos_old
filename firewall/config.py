@@ -2,12 +2,17 @@
 # -*- coding: utf-8 -*-
 from os import path
 
-dir = "dat"
-db_name = "rules.sqlite"
-backup_name = "bak.iptables"
+config = None
+
+with open("../config.json") as config_file:
+    config = json.load(config_file)
+
+
+dir = config['firewall']['dir']
+db_name = config['firewall']['db_name']
+backup_name = config['firewall']['backup_name']
 
 db_path = path.join(dir, db_name)
 backup_path = path.join(dir, backup_name)
 
-# timeout for Firewall.Warden seconds
-timeout = 1*60
+timeout = config['firewall']['timeout']

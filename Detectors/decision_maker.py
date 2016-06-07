@@ -55,7 +55,7 @@ class DecisionMaker():
 
     def make(self, timestamp=None, depth=None):
 
-        result = "empty"
+        result = None
         
         data = self.storage.select(timestamp, depth)
         
@@ -64,7 +64,7 @@ class DecisionMaker():
         malware_src, malware_dst = self.predict(data, "s_d", malware_tables=malware_tables)
         
         if len(malware_src) > 0:
-            result = "', '".join(sorted(malware_src))
+            result = sorted(malware_src)
 
         #!
         #s = 's_d'

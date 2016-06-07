@@ -1,10 +1,12 @@
 ﻿#!/usr/bin/python
 import sys, time, os
 from multiprocessing import Process, Queue
+import datetime
+import json
+
 from decision_maker import DecisionMaker
 from storage import Storage
 from sock import Sock
-import datetime
 
 from config import config
 
@@ -30,7 +32,7 @@ def process_socket(q):
 
 # make decision by data
 def process_data(q):
-    #s = sock.socket_s()
+    s = sock.socket_s()
     while True:
         pkg, time1 = q.get()
         decision = decision_maker.make(timestamp=int(pkg), depth=2)
@@ -39,6 +41,8 @@ def process_data(q):
         print 'decision', time2
         time3 = (time2 - time1).total_seconds()
         print 'delta', time3
+        s.send(json.dumps(decision))
+        
 
 def main():
     q1 = Queue()

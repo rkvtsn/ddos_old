@@ -1,5 +1,6 @@
 /*
-
+    # Firewall Timeout for Warden in seconds.
+    # WARNING: Timeout in packages from 'judge_service' in minutes!
 */
 
 {
@@ -34,6 +35,7 @@
         "ip": "127.0.0.1",
         "db_name": "rules.sqlite",
         "backup_name": "bak.iptables",
+        "dir": "data",
         "timeout": 180,
         "port": 6352
     }
