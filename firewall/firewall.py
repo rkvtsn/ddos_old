@@ -71,8 +71,8 @@ class Firewall():
         min_life_time = config.timeout
         
         #TODO: If Count of rules is equal 0 rise Timeout by the TOP from SELECT:
-        if len(rules) == 0:
-            self._c.execute('SELECT life_time FROM rules LIMIT 1')
+        #if len(rules) == 0:
+        #    self._c.execute('SELECT life_time FROM rules LIMIT 1')
         
             
                 

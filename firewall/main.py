@@ -17,6 +17,21 @@ sock = Sock({
     "ip_in": "127.0.0.1",
 })
 
+firewall = Firewall()
+        
+# looking for dead rules by life_time in DB
+def process_warden():
+    
+    print "begin refreshing"
+    
+    # update tables by life_time
+    # TODO: calculate min timeout from DB ...
+    fw = Firewall()
+    fw.refresh()
+    fw.close_connection()
+
+    print "end refreshing"
+
 
 # listening socket
 def process_socket(q):
@@ -25,6 +40,8 @@ def process_socket(q):
         pkg = sock.get_package(r)
         data = json.loads(pkg)
         q.put(data)
+
+
 
 
 # make decision by data
@@ -43,18 +60,6 @@ def process_data(q):
 def main():
     q1 = Queue()
     try:
-        
-        firewall = Firewall()
-        
-        # looking for dead rules by life_time in DB
-        def process_warden():
-    
-            print "begin refreshing"
-            # update tables by life_time
-            # TODO: calculate min timeout from DB ...
-            # TODO: Нужно подумать как будет выполняться в условиях параллельного потока при добавлении нового правила с минимальным интервалом в момент уже запущенного потока...
-            firewall.refresh()
-            print "end refreshing"
 
         warden = TimeInterval(config.timeout, process_warden)
         warden.start()
