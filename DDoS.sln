@@ -1,15 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Collector", "Collector\Collector.njsproj", "{FFE4F131-FFE0-467F-8AFC-F2B1CD7D25C0}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BDD1F4B1-9D07-4B8C-B92C-D5AB3E90097F}"
+	ProjectSection(SolutionItems) = preProject
+		config.json = config.json
+	EndProjectSection
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "PredictionModel", "PredictionModel\PredictionModel.pyproj", "{02808449-4C0B-473A-9547-BF0E01D966FD}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "detectors", "detectors\detectors.pyproj", "{2A955590-A711-43EB-9D8B-1EA9B9EB4F17}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Detectors", "Detectors\Detectors.pyproj", "{83B96580-7D4E-4FA4-B9EA-26D5021E024B}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "firewall", "firewall\firewall.pyproj", "{373A8894-6974-4141-9124-FAC41D6D3DED}"
 EndProject
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "firewall", "firewall\firewall.pyproj", "{3CF007C9-23DB-4A44-913C-2753E26CCBE9}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Collector", "collector\Collector.njsproj", "{FFE4F131-FFE0-467F-8AFC-F2B1CD7D25C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,16 +20,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A955590-A711-43EB-9D8B-1EA9B9EB4F17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A955590-A711-43EB-9D8B-1EA9B9EB4F17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{373A8894-6974-4141-9124-FAC41D6D3DED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{373A8894-6974-4141-9124-FAC41D6D3DED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFE4F131-FFE0-467F-8AFC-F2B1CD7D25C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FFE4F131-FFE0-467F-8AFC-F2B1CD7D25C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFE4F131-FFE0-467F-8AFC-F2B1CD7D25C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFE4F131-FFE0-467F-8AFC-F2B1CD7D25C0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{02808449-4C0B-473A-9547-BF0E01D966FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{02808449-4C0B-473A-9547-BF0E01D966FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{83B96580-7D4E-4FA4-B9EA-26D5021E024B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{83B96580-7D4E-4FA4-B9EA-26D5021E024B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3CF007C9-23DB-4A44-913C-2753E26CCBE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3CF007C9-23DB-4A44-913C-2753E26CCBE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

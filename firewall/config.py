@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 from os import path
 
-dir = "firewall"
+dir = "dat"
 db_name = "rules.sqlite"
 backup_name = "bak.iptables"
 

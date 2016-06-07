@@ -136,8 +136,3 @@ class Firewall():
                 rules.append(rule + ports_str)
         
         return rules
-    
-
-
-
-

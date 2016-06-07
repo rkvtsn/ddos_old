@@ -1,0 +1,40 @@
+/*
+
+*/
+
+{
+    "database": {
+        "username": "postgres",
+        "password": "123456",
+        "hostname": "localhost",
+        "database": "traffic",
+        "port": "5432"
+    },
+    "NetFlow": {
+        "port": 6344
+    },
+    "collector": {
+        "interval": 5000,
+        "ip": "127.0.0.1",
+        "port": 6345
+    },
+    "detector_1": {
+        "ip": "127.0.0.1",
+        "port": 6347
+    },
+    "detector_2": {
+        "ip": "127.0.0.1",
+        "port": 6350
+    },
+    "judge_service": {
+        "ip": "127.0.0.1",
+        "port": 6351
+    },
+    "firewall": {
+        "ip": "127.0.0.1",
+        "db_name": "rules.sqlite",
+        "backup_name": "bak.iptables",
+        "timeout": 180,
+        "port": 6352
+    }
+}

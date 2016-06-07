@@ -6,20 +6,20 @@ from sklearn.tree import DecisionTreeClassifier
 
 from sock import Sock
 
-CONFIG = {
-    "port_in": 6347,
-    "port_out": 6350,
-    "ip_in": "127.0.0.1",
-    "ip_out": "127.0.0.1",
-}
+from config import config
+
+sock = Sock({
+    "port_in": config['detector_1']['port'],
+    "port_out": config['detector_2']['port'],
+    "ip_in": config['detector_1']['ip'],
+    "ip_out": config['detector_1']['ip']
+})
+
 
 ATTACK_THRESHOLD = 2
-
-sock = Sock(CONFIG)
+attack_count = 0
 
 model = joblib.load("models/100decisionTreeALL.pkl")
-
-attack_count = 0
 
 # listening socket
 def process_socket(q):

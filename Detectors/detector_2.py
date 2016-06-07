@@ -1,27 +1,21 @@
 ﻿#!/usr/bin/python
 import sys, time, os
 from multiprocessing import Process, Queue
-
 from decision_maker import DecisionMaker
 from storage import Storage
 from sock import Sock
 import datetime
 
+from config import config
 
-CONFIG = {
-    "port_in": 6350,
-    "port_out": 6341,
-    "ip_in": "127.0.0.1",
-    "ip_out": "127.0.0.1",
+decision_maker = DecisionMaker(config['database'])
 
-    "username": 'postgres',
-    "password": '123456',
-    "hostname": 'localhost',
-    "database": 'traffic',
-}
-
-decision_maker = DecisionMaker(CONFIG)
-sock = Sock(CONFIG)
+sock = Sock({
+    "port_in": config['detector_2']['port'],
+    "port_out": config['judge_service']['port'],
+    "ip_in": config['detector_2']['ip'],
+    "ip_out": config['judge_service']['ip']
+})
 
 # listening socket
 def process_socket(q):

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>3cf007c9-23db-4a44-913c-2753e26ccbe9</ProjectGuid>
+    <ProjectGuid>373a8894-6974-4141-9124-fac41d6d3ded</ProjectGuid>
     <ProjectHome>.</ProjectHome>
     <StartupFile>firewall.py</StartupFile>
     <SearchPath>
@@ -24,21 +24,14 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="config.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="config.py" />
     <Compile Include="firewall.py" />
-    <Compile Include="main.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="sock.py" />
-    <Compile Include="test.py">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tinterval.py">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="install.py" />
+    <Compile Include="main.py" />
+    <Compile Include="restore.py" />
+    <Compile Include="sock.py" />
+    <Compile Include="test.py" />
+    <Compile Include="tinterval.py" />
   </ItemGroup>
   <ItemGroup>
     <InterpreterReference Include="{9a7a9026-48c1-4688-9d5d-e5699d47d074}\2.7" />
