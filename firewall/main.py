@@ -1,24 +1,23 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import datetime
-import json
-import sys, time, os
+import sys, time, os, datetime, json
 from multiprocessing import Process, Queue
-
-import config
 
 from tinterval import TimeInterval
 from firewall import Firewall
 from sock import Sock
 
+import config
+
+
 
 sock = Sock({
-    "port_in": 6350,
-    "ip_in": "127.0.0.1",
+    "port_in": config.config['firewall']['port'],
+    "ip_in": config.config['firewall']['ip'],
 })
 
 firewall = Firewall()
-        
+
 # looking for dead rules by life_time in DB
 def process_warden():
     

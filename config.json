@@ -32,7 +32,7 @@
         "port": 6351
     },
     "firewall": {
-        "ip": "127.0.0.1",
+        "ip": "10.130.6.86",
         "db_name": "rules.sqlite",
         "backup_name": "bak.iptables",
         "dir": "data",

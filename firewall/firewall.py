@@ -1,16 +1,14 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import sys
-import os
-import subprocess
-import sqlite3
-from math import ceil
-from datetime import datetime as dt
-from datetime import timedelta
 
-import config
+from math import ceil
+from datetime import timedelta
+from datetime import datetime as dt
+import sys, os, subprocess, sqlite3
 
 from tinterval import TimeInterval
+
+import config
 
 
 if not os.getuid() == 0:
@@ -26,6 +24,7 @@ if not os.getuid() == 0:
 
 
 class Firewall():
+
 
     def __init__(self):
 
@@ -97,7 +96,7 @@ class Firewall():
         life_time = dt.now() + timedelta(minutes=timeout)
 
         if t == "list":
-            # iptables has limit for ports (15 items) -> split it on chunks by 15
+            # iptables has limit for ports (15 items) -> split it by chunks
             drop_rules = self._rules_batch_ports(rule, bad_ports)
             for r in drop_rules:
                 rule_str = r + j

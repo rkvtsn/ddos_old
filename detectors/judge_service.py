@@ -3,7 +3,6 @@ import sys, time, os
 from multiprocessing import Process, Queue
 import json
 
-
 from sock import Sock
 
 from config import config
