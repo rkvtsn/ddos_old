@@ -30,8 +30,7 @@ def judge(data):
 
     result = []
 
-    # TODO
-    #do some work
+    # TODO:
     for d in data:
         #only IP
         result.append({ 't': None, 'ip': d, 'bad_ports': [], 'good_ports': [], 'timeout': 5, 'is_inner': True })
